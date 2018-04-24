@@ -1,0 +1,15 @@
+- name: create adagios logs volume
+  file: state=directory dest="{{ ext_adagios_logs_volume }}"
+
+- name: start an Adagios container
+  docker_container:
+    image: opinkerfi/adagios-git:latest
+    state: started
+    read_only: no
+    hostname: "{{ ansible_hostname }}-adagios-{{ ext_adagios_port }}"
+    ports:
+      - "{{ ext_adagios_port }}:80"
+    volumes:
+      - "{{ ext_adagios_logs_volume }}:/var/log/nagios"
+    name: "adagios-{{ ext_adagios_port }}"
+    restart_policy: always
