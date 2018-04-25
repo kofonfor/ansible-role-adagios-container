@@ -3,7 +3,7 @@
 
 - name: start an Adagios container
   docker_container:
-    image: opinkerfi/adagios-git:latest
+    image: kofonfor/adagios-git:latest
     state: started
     read_only: no
     hostname: "{{ ansible_hostname }}-adagios-{{ ext_adagios_port }}"
